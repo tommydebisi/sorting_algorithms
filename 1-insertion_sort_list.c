@@ -3,7 +3,7 @@
 /**
  * size_of_list - fid lenght of list
  * @list: pointer to head of list
- * 
+ *
  * Return: size of list.
  */
 size_t size_of_list(listint_t *list)
@@ -13,20 +13,20 @@ size_t size_of_list(listint_t *list)
 	size = 0;
 
 	if (list == NULL)
-		return (size);
+		return (size);	/*return 0*/
 	while (list)
 	{
-		list= list->next;
+		list = list->next;
 		size++;
 	}
 	return (size);
 }
- 
+
 /**
  * insertion_sort_list - sorts a doubly linked list in ascending order
  * @list: pointer to pointer to the head
- * 
- * Return: nothing 
+ *
+ * Return: nothing
  */
 void insertion_sort_list(listint_t **list)
 {

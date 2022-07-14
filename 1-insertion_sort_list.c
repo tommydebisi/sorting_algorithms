@@ -1,8 +1,10 @@
 #include "sort.h"
 
 /**
- * size_of_list -
+ * size_of_list - fid lenght of list
+ * @list: pointer to head of list
  * 
+ * Return: size of list.
  */
 size_t size_of_list(listint_t *list)
 {

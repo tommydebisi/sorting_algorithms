@@ -17,34 +17,40 @@ void swap_pos(int **array, size_t first, size_t second)
 }
 
 /**
- * bubble_sort - sorting algorithm that sorts in form
- * of a bubble
+ * selection_sort - uses the selection algo to sort
+ * an array
  *
  * @array: array to be sorted
  * @size: size of the array
  */
-void bubble_sort(int *array, size_t size)
+void selection_sort(int *array, size_t size)
 {
-	size_t i, j, flag;
+	size_t i, j;
+	int min_val, min_index, flag;
 
 	if (size < 2)
 		return;
 
-	for (i = 0; i < size; i++)	/* go through the array */
+	for (i = 0; i < size; i++)
 	{
+		min_val = array[i];
+		min_index = i;
 		flag = 0;
-		for (j = 0; j < size - i - 1; j++)	/* loop only the unsorted */
+
+		for (j = i + 1; j < size; j++)	/* start from the unsorted part */
 		{
-			if (array[j] > array[j + 1])
+			if (min_val > array[j])  /* check for min value */
 			{
-				swap_pos(&array, j, j + 1);
-				print_array(array, size);
+				min_val = array[j];
+				min_index = j;
 				flag = 1;
 			}
 		}
 
-		/* check if no swap occured (meaning array is sorted) */
-		if (!flag)
-			break;
+		if (flag)
+		{
+			swap_pos(&array, i, min_index);
+			print_array(array, size);
+		}
 	}
 }

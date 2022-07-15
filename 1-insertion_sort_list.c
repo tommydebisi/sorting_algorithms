@@ -1,54 +1,40 @@
 #include "sort.h"
 
 /**
- * size_of_list - fid lenght of list
- * @list: pointer to head of list
- *
- * Return: size of list.
- */
-size_t size_of_list(listint_t *list)
-{
-	size_t size;
-
-	size = 0;
-
-	if (list == NULL)
-		return (size);	/*return 0*/
-	while (list)
-	{
-		list = list->next;
-		size++;
-	}
-	return (size);
-}
-
-/**
- * insertion_sort_list - sorts a doubly linked list in ascending order
- * @list: pointer to pointer to the head
- *
- * Return: nothing
+ * insertion_sort_list -  sorts a doubly linked list of integers
+ * in ascending order using the Insertion sort algorithm.
+ * @list: given dl list
  */
 void insertion_sort_list(listint_t **list)
 {
-	size_t size, i = 0;	/*@n: size of list*/
-	listint_t *end_of_list;
-	int temp;
+	listint_t *current, *temp;
 
-	size = size_of_list(*list);
-	while (*list)
+	if (!list)
+		return;
+
+	for (current = *list; current; current = current->next)
 	{
-		*list = (*list)->next;
-		end_of_list = *list;
-	}
-	while (i < size)
-	{
-		temp = end_of_list->n;
-		while (end_of_list->prev && temp < end_of_list->prev->n)
+		while (current->next && (current->next->n < current->n))
 		{
-			end_of_list->next->n = end_of_list->prev->n;
-			end_of_list->prev;
+			temp = current->next;
+			current->next = temp->next;
+			temp->prev = current->prev;
+
+			if (current->prev)
+				current->prev->next = temp;
+
+			if (temp->next)
+				temp->next->prev = current;
+
+			current->prev = temp;
+			temp->next = current;
+
+			if (temp->prev)
+				current = temp->prev;
+			else
+				*list = temp;
+
+			print_list(*list);
 		}
-		end_of_list->prev->n = temp;
-		i++;
 	}
 }

@@ -87,6 +87,8 @@ void sorter(int **array, size_t lb, size_t ub, size_t size)
  */
 void quick_sort(int *array, size_t size)
 {
+	if (size < 2)
+		return;
 	/* create the sorter function to recursively sort the array */
 	sorter(&array, 0, size - 1, size);
 }

@@ -23,12 +23,13 @@ void swap_pos(int **array, size_t first, size_t second)
  * @array: array to be sorted
  * @lower: lower boundary
  * @upper: upper boundary
+ * @size: size of the array
  *
  * Return: index of sorted pivot
  */
-size_t partition(int **array, size_t lower, size_t upper)
+size_t partition(int **array, size_t lower, size_t upper, size_t size)
 {
-	size_t before, after, pivot;
+	size_t before, after, pivot, flag = 0;
 
 	pivot = upper;
 	before = lower;
@@ -39,12 +40,17 @@ size_t partition(int **array, size_t lower, size_t upper)
 		if ((*array)[after] < (*array)[pivot])
 		{
 			swap_pos(array, before, after);
+			if (!flag)
+				print_array(*array, size);
 			before += 1;
+			flag = 1;
 		}
 	}
 
 	/* swap pivot to its original position */
 	swap_pos(array, before, after);
+	if (!flag)
+		print_array(*array, size);
 	return (before);
 }
 /**
@@ -53,26 +59,23 @@ size_t partition(int **array, size_t lower, size_t upper)
  * @array: array to be sorted
  * @lb: lower bound
  * @ub: upper bound
+ * @size: size of the array
  */
-void sorter(int **array, size_t lb, size_t ub)
+void sorter(int **array, size_t lb, size_t ub, size_t size)
 {
 	size_t sorted_index;
+
 	/* recursive breakpoint */
 	if (lb < ub)
 	{
-		sorted_index = partition(array, lb, ub);
+		sorted_index = partition(array, lb, ub, size);
 
 		/* perform recursive sort */
 		if (sorted_index)
-		{
-			sorter(array, lb, sorted_index - 1);    /* sort lower boundary */
-			print_array(*array, ub + 1);
-		}
+			sorter(array, lb, sorted_index - 1, size);    /* sort lower boundary */
+
 		if (sorted_index != ub)
-		{
-			sorter(array, sorted_index + 1, ub);    /* sort upper boundary */
-			print_array(*array, ub + 1);
-		}
+			sorter(array, sorted_index + 1, ub, size);    /* sort upper boundary */
 	}
 }
 
@@ -86,5 +89,6 @@ void sorter(int **array, size_t lb, size_t ub)
 void quick_sort(int *array, size_t size)
 {
 	/* create the sorter function to recursively sort the array */
-	sorter(&array, 0, size - 1);
+	sorter(&array, 0, size - 1, size);
+	print_array(array, size);
 }

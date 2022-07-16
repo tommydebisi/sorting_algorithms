@@ -37,7 +37,7 @@ size_t partition(int **array, size_t lower, size_t upper, size_t size)
 	for (after = before; after < upper; after++)
 	{
 		/* check if array after is lesser than array pivot */
-		if ((*array)[after] < (*array)[pivot])
+		if ((*array)[after] <= (*array)[pivot])
 		{
 			if (before != after)
 			{

@@ -39,17 +39,21 @@ size_t partition(int **array, size_t lower, size_t upper, size_t size)
 		/* check if array after is lesser than array pivot */
 		if ((*array)[after] < (*array)[pivot])
 		{
-			swap_pos(array, before, after);
 			if (before != after)
+			{
+				swap_pos(array, before, after);
 				print_array(*array, size);
+			}
 			before += 1;
 		}
 	}
 
 	/* swap pivot to its original position */
-	swap_pos(array, before, after);
 	if (before != after)
+	{
+		swap_pos(array, before, after);
 		print_array(*array, size);
+	}
 	return (before);
 }
 /**
@@ -70,10 +74,10 @@ void sorter(int **array, size_t lb, size_t ub, size_t size)
 		sorted_index = partition(array, lb, ub, size);
 
 		/* perform recursive sort */
-		if (sorted_index)
+		if (sorted_index - lb > 1)	/* more than one element must be present */
 			sorter(array, lb, sorted_index - 1, size);    /* sort lower boundary */
 
-		if (sorted_index != ub)
+		if (ub - sorted_index > 1)
 			sorter(array, sorted_index + 1, ub, size);    /* sort upper boundary */
 	}
 }
@@ -87,7 +91,7 @@ void sorter(int **array, size_t lb, size_t ub, size_t size)
  */
 void quick_sort(int *array, size_t size)
 {
-	if (size < 2 || !array)
+	if (!array || size < 2)
 		return;
 	/* create the sorter function to recursively sort the array */
 	sorter(&array, 0, size - 1, size);

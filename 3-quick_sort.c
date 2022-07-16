@@ -65,7 +65,7 @@ void sorter(int **array, size_t lb, size_t ub, size_t size)
 	size_t sorted_index;
 
 	/* recursive breakpoint */
-	if (lb < ub)
+	if (lb < ub && *array)
 	{
 		sorted_index = partition(array, lb, ub, size);
 
@@ -87,7 +87,7 @@ void sorter(int **array, size_t lb, size_t ub, size_t size)
  */
 void quick_sort(int *array, size_t size)
 {
-	if (size < 2)
+	if (size < 2 || !array)
 		return;
 	/* create the sorter function to recursively sort the array */
 	sorter(&array, 0, size - 1, size);

@@ -29,7 +29,7 @@ void swap_pos(int **array, size_t first, size_t second)
  */
 size_t partition(int **array, size_t lower, size_t upper, size_t size)
 {
-	size_t before, after, pivot, flag = 0;
+	size_t before, after, pivot;
 
 	pivot = upper;
 	before = lower;
@@ -40,16 +40,15 @@ size_t partition(int **array, size_t lower, size_t upper, size_t size)
 		if ((*array)[after] < (*array)[pivot])
 		{
 			swap_pos(array, before, after);
-			if (!flag)
+			if (before != after)
 				print_array(*array, size);
 			before += 1;
-			flag = 1;
 		}
 	}
 
 	/* swap pivot to its original position */
 	swap_pos(array, before, after);
-	if (!flag)
+	if (before != after)
 		print_array(*array, size);
 	return (before);
 }
@@ -90,5 +89,4 @@ void quick_sort(int *array, size_t size)
 {
 	/* create the sorter function to recursively sort the array */
 	sorter(&array, 0, size - 1, size);
-	print_array(array, size);
 }

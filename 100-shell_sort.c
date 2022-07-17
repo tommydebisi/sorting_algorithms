@@ -90,7 +90,6 @@ void shell_sort(int *array, size_t size)
 
 	while (seq_index < size)
 	{
-		/*printf("sequence[%li] = %i\n", seq_index, rev_sequence[seq_index]);*/
 		for (i = rev_seq[seq_index]; i < size; i++)
 		{
 			temp = array[i];

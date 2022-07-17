@@ -36,7 +36,7 @@ void cocktail_sort_list(listint_t **list)
 	listint_t *future;
 	int swapped = 1;
 
-	if (!(*list) || !(*list)->next)	/* check for more than one node */
+	if (!list || !(*list) || !(*list)->next)  /* only one node */
 		return;
 
 	future = *list;

@@ -36,14 +36,13 @@ void cocktail_sort_list(listint_t **list)
 	listint_t *future;
 	int swapped = 1;
 
-	if (!(*list) || !(*list)->next)
+	if (!(*list) || !(*list)->next)	/* check for more than one node */
 		return;
 
 	future = *list;
 	while (swapped)
 	{
 		swapped = 0;
-
 		while (future->next)    /* traverse forward */
 		{
 			if (future->n > future->next->n)
@@ -59,6 +58,7 @@ void cocktail_sort_list(listint_t **list)
 		if (!swapped)   /* list is sorted */
 			break;
 
+		swapped = 0;
 		while (future->prev)    /* traverse backwards */
 		{
 			if (future->n < future->prev->n)

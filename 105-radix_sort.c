@@ -101,7 +101,7 @@ void radix_sort(int *array, size_t size)
 {
 	int max = get_max(array, size), position = 1;
 
-	if (!array || max == 0)
+	if (!array || size < 2)
 		return;
 
 	while ((max / position) > 0)

@@ -51,21 +51,21 @@ void sort_counter(int *array, size_t size, int place)
 	int k, *position, *sumPosition, *sorted;
 	size_t i, j;
 
-	position = malloc(sizeof(int) * size);
+	position = malloc(sizeof(int) * 10);
 	if (!position)
 		return;
-	arr_zero_init(position, size);
+	arr_zero_init(position, 10);
 
 	for (i = 0; i < size; i++)
 		position[(array[i] / place) % 10] += 1;    /* position at LSD */
 
-	sumPosition = malloc(sizeof(int) * size);
+	sumPosition = malloc(sizeof(int) * 10);
 	if (!sumPosition)
 		return;
-	arr_zero_init(sumPosition, size);
+	arr_zero_init(sumPosition, 10);
 	sumPosition[0] = position[0];   /* make first index equal */
 
-	for (j = 1; j < size; j++)
+	for (j = 1; j < 10; j++)
 		sumPosition[j] = position[j] + sumPosition[j - 1];
 
 	free(position);

@@ -24,48 +24,25 @@ void swap(int **array, int first, int second)
  *
  * Return: array as sorted heap 
  */
-void build_Max_Heap(int *array, int i, size_t size)
+void build_Max_Heap(int *array, int size, int start_index, int a_size)
 {
 	int largest, left, right;
 
-	largest = i;
-	left = (i * 2) + 1;
-	right = (i * 2) + 2;
+	largest = start_index;
+	left = (start_index * 2) + 1;
+	right = (start_index * 2) + 2;
 
-	/*printf("")*/
-	if (left <= (int)size && array[left] > array[largest])
-	{
-		printf("before \n");
-		printf("size = %i left = %i largest = %i\n", (int)size, left, largest);
-		printf("array[%i] = %i\n", left, array[left]);
-		printf("array[%i] = %i\n", largest, array[largest]);
+	if (left < size && array[left] > array[largest])
 		largest = left;
-		printf("after \n");
-		printf("size = %i left = %i largest = %i\n", (int)size, left, largest);
-		printf("array[%i] = %i\n", left, array[left]);
-		printf("array[%i] = %i\n", largest, array[largest]);
 
-	}
-
-	if (right <= (int)size && array[right] > array[largest])
-	{
-		printf("before \n");
-		printf("size = %i right = %i largest = %i\n", (int)size, right, largest);
-		printf("array[%i] = %i\n", right, array[right]);
-		printf("array[%i] = %i\n", largest, array[largest]);
+	if (right < size && array[right] > array[largest])
 		largest = right;
-		printf("after \n");
-		printf("size = %i right = %i largest = %i\n", (int)size, right, largest);
-		printf("array[%i] = %i\n", right, array[right]);
-		printf("array[%i] = %i\n", largest, array[largest]);
 
-	}
-
-	if (largest != i)
+	if (largest != start_index)
 	{
-		swap(&array, largest, i);
-		print_array(array, size);
-		build_Max_Heap(array, largest, size);
+		swap(&array, start_index, largest);
+		print_array(array, a_size);
+		build_Max_Heap(array, size, largest, a_size);
 	}
 }
 
@@ -80,20 +57,22 @@ void heap_sort(int *array, size_t size)
 {
 	int start_index, i;
 
-	start_index = (size / 2) - 1;
-	size = size - 1;
+	if (!array || size < 2)
+		return;
+
+	start_index = ((int)size - 1) / 2;
 
 	/*Build max heap*/
 	for (i = start_index; i >= 0; i--)
 	{
-		/*printf("size = %i i = %i", (int)size, i);*/
-		build_Max_Heap(array, i, size);
+		build_Max_Heap(array, size, i, size);
 	}
 
 	/*Destroy max heap*/
-	/*for (i = size; i >= 0; i--)
+	for (i = size - 1; i >=0; i--)
 	{
 		swap(&array, 0, i);
-		build_Max_Heap(array, 0, size);
-	}*/
+		print_array(array, size);
+		build_Max_Heap(array, i, 0, size);
+	}
 }

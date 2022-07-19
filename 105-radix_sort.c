@@ -27,9 +27,6 @@ int get_max(int *array, size_t size)
 	int max;
 	size_t i;
 
-	if (size < 2)
-		return (0);
-
 	max = array[0];	/* start from first index */
 
 	for (i = 1; i < size; i++)
@@ -99,10 +96,12 @@ void sort_counter(int *array, size_t size, int place)
  */
 void radix_sort(int *array, size_t size)
 {
-	int max = get_max(array, size), position = 1;
+	int max, position = 1;
 
-	if (!array || max == 0)
+	if (!array || size < 2)
 		return;
+
+	max = get_max(array, size);
 
 	while ((max / position) > 0)
 	{

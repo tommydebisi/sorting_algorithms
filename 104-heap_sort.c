@@ -20,9 +20,11 @@ void swap(int **array, int first, int second)
 /**
  * build_Max_Heap - builds a heap from an array
  * @array: array to be changed to heap array
- * @i: index of array element
+ * @size: size of array
+ * @start_index: parent index
+ * @a_size: sorted array index
  *
- * Return: array as sorted heap 
+ * Return: array as sorted heap
  */
 void build_Max_Heap(int *array, int size, int start_index, int a_size)
 {
@@ -69,7 +71,7 @@ void heap_sort(int *array, size_t size)
 	}
 
 	/*Destroy max heap*/
-	for (i = size - 1; i >=0; i--)
+	for (i = size - 1; i >= 0; i--)
 	{
 		swap(&array, 0, i);
 		print_array(array, size);

@@ -7,13 +7,13 @@
  * @first: first index
  * @second: second index
  */
-void swap_pos(int **array, size_t first, size_t second)
+void swap_pos(int *array, size_t first, size_t second)
 {
 	int holder;
 
-	holder = (*array)[first];
-	(*array)[first] = (*array)[second];
-	(*array)[second] = holder;
+	holder = (array)[first];
+	(array)[first] = (array)[second];
+	(array)[second] = holder;
 }
 
 /**
@@ -32,34 +32,35 @@ size_t partition(int *array, size_t lower, size_t upper, size_t size)
 	int before, after, pivot;
 
 	pivot = (int)upper;
-    before = (int)lower;
-    after = pivot;  /* end before the last index */
+	before = (int)lower;
+	after = pivot;  /* end before the last index */
 
 	while (before < after)
 	{
-        while (array[before] <= array[pivot])
-            before++;
+		while (array[before] < array[pivot])
+			before++;
 
-        while (array[after] > array[pivot])
-            after--;
+		while (array[after] > array[pivot])
+			after--;
 
-        if (before < after)
-        {
-            swap_pos(&array, before, after);
-            printf("after: %d\n", after);
-            if (after == pivot)
-                pivot = after;
-            print_array(array, size);
-        }
+		if (before <= after)
+		{
+			if (before != after)
+			{
+				if (after == pivot)	/* swapping the last element */
+					pivot = before;
+
+				swap_pos(array, before, after);
+				print_array(array, size);
+			}
+
+			/* move if swapped or not */
+			before++;
+			after--;
+		}
 	}
 
-	/* swap pivot to its original position */
-	if (before > after)
-	{
-		swap_pos(&array, before, pivot);
-		print_array(array, size);
-	}
-	return (before);
+	return (after);
 }
 
 /**
@@ -80,11 +81,8 @@ void sorter(int *array, size_t lb, size_t ub, size_t size)
 		sorted_index = partition(array, lb, ub, size);
 
 		/* perform recursive sort */
-		if (sorted_index - lb > 1)	/* more than one element must be present */
-			sorter(array, lb, sorted_index - 1, size);    /* sort lower boundary */
-
-		if (ub - sorted_index > 1)
-			sorter(array, sorted_index + 1, ub, size);    /* sort upper boundary */
+		sorter(array, lb, sorted_index, size);    /* sort lower boundary */
+		sorter(array, sorted_index + 1, ub, size);    /* sort upper boundary */
 	}
 }
 

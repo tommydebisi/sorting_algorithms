@@ -29,13 +29,13 @@ void swap_pos(int *array, size_t first, size_t second)
  */
 size_t partition(int *array, size_t lower, size_t upper, size_t size)
 {
-	int before, after, pivot;
+	size_t before, after, pivot;
 
-	pivot = (int)upper;
-	before = (int)lower;
-	after = pivot;  /* end before the last index */
+	pivot = upper; /* pivot must be the last element in the array */
+	before = lower;
+	after = pivot;
 
-	while (before < after)
+	while (before <= after)
 	{
 		while (array[before] < array[pivot])
 			before++;

@@ -11,14 +11,14 @@ void swap_pos(int *array, size_t first, size_t second)
 {
 	int holder;
 
-	holder = (array)[first];
-	(array)[first] = (array)[second];
-	(array)[second] = holder;
+	holder = array[first];
+	array[first] = array[second];
+	array[second] = holder;
 }
 
 /**
  * partition - splits the array into two parts
- * part lower than the sorted index and a part higher
+ * and sorts the array using hoare partition method
  *
  * @array: array to be sorted
  * @lower: lower boundary
